@@ -1,15 +1,11 @@
 #! /bin/bash
-if [[ "$CODESPACES" ==  true ]]; then
-  BASE_DIR="/workspaces/.codespaces/.persistedshare"
-else
-  BASE_DIR="$HOME"
-fi
+BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-for ENTRY in `ls -a $BASE_DIR/dotfiles`
+for ENTRY in `ls -a $BASE_DIR`
 do
   if [ -f $ENTRY ]; then
     if [[ $ENTRY =~ ^\..* ]]; then
-    ln -sF $BASE_DIR/dotfiles/$ENTRY ~/$ENTRY | echo "linked $ENTRY"
+    ln -sF $BASE_DIR/$ENTRY ~/$ENTRY | echo "linked $ENTRY"
     fi
   fi
 done
@@ -17,11 +13,11 @@ done
 if [ ! -d "~/.config" ]; then
   mkdir -p ~/.config
 fi
-for CONFIG in `ls $BASE_DIR/dotfiles/.config`
+for CONFIG in `ls $BASE_DIR/.config`
 do
   if [ -d $CONFIG ]; then
     rm -rf ~/.config/$CONFIG
-  ln -sF $BASE_DIR/dotfiles/.config/$CONFIG ~/.config/$CONFIG | echo "linked $CONFIG"
+  ln -sF $BASE_DIR/.config/$CONFIG ~/.config/$CONFIG | echo "linked $CONFIG"
   fi
 done
 
