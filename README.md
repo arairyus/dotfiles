@@ -1,2 +1,2 @@
 # dotfiles
-arairyuse dotfiles
+arairyus dotfiles
