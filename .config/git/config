@@ -1,0 +1,22 @@
+# Sync this file to ~/.config/git/config.
+# ~/.config/git/config > ~/.gitconfig > repository/.gitconfig
+[user]
+	name = ryuseiarai
+	email = arai.ryusei.jp@gmail.com
+[credential "https://source.developers.google.com"]
+	helper = gcloud.sh
+[branch]
+	sort = -authordate
+[alias]
+	push-f = push --force-with-lease
+	sw = switch
+	br = branch
+	ci = commit
+	st = status
+	ad = add
+	pl = pull origin
+[url "https://:@github.com"]
+	insteadOf = https://github.com
+[url "https://oauth2:TOKEN@gitlab.com"]
+	insteadOf = https://gitlab.com
+# SSO org settings are defined in ~/.gitconfig

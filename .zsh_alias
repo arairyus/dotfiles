@@ -1,0 +1,6 @@
+# alias
+alias python="python3" 
+alias pip="pip3" 
+alias tg='terragrunt'
+alias tf='terraform'
+alias dk='docker'
