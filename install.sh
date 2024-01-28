@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -e
+#! /bin/bash
 if [[ "$CODESPACES" ==  true ]]; then
   BASE_DIR="/workspaces/.codespaces/.persistedshare"
 else
