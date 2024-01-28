@@ -16,9 +16,9 @@ if [ ! -d "~/.config" ]; then
 fi
 for CONFIG in `ls $BASE_DIR/.config`
 do
-  if [ -d $CONFIG ]; then
+  if [ -d "$BASE_DIR/.config/$CONFIG" ]; then
     rm -rf ~/.config/$CONFIG
-    ln -sF $BASE_DIR/.config/$CONFIG ~/.config/$CONFIG | echo "linked $CONFIG"
+    ln -sF $BASE_DIR/.config/$CONFIG ~/.config/$CONFIG | echo "linked $CONFIG" | echo "linked .config/$CONFIG"
   fi
 done
 
