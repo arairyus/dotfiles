@@ -39,5 +39,3 @@ zstyle ':vcs_info:*' actionformats '[%b|%a]'
 PROMPT='%n@%m %c'\$vcs_info_msg_0_' %# '
 precmd(){ vcs_info }
 export PATH="$HOME/.tgenv/bin:$PATH"
-
-source ~/.zsh_alias
