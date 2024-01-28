@@ -1,3 +1,7 @@
+if [ -f ~/.zsh_aliases ]; then
+    . ~/.zsh_aliases
+fi
+
 # Cloud
 ## google cloud
 if [ -f '/Users/ryusei/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ryusei/google-cloud-sdk/path.zsh.inc'; fi
