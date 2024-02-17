@@ -1,12 +1,13 @@
 #! /bin/bash
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+cd $BASE_DIR
 
 for ENTRY in `ls -a $BASE_DIR`
 do
   if [ -f $ENTRY ]; then
     if [[ $ENTRY =~ ^\..* ]]; then
       rm -rf ~/$ENTRY
-      ln -sF $BASE_DIR/$ENTRY ~/$ENTRY | echo "linked $ENTRY"
+      ln -sf $BASE_DIR/$ENTRY ~/$ENTRY | echo "linked $ENTRY"
     fi
   fi
 done
@@ -18,7 +19,7 @@ for CONFIG in `ls $BASE_DIR/.config`
 do
   if [ -d "$BASE_DIR/.config/$CONFIG" ]; then
     rm -rf ~/.config/$CONFIG
-    ln -sF $BASE_DIR/.config/$CONFIG ~/.config/$CONFIG | echo "linked $CONFIG" | echo "linked .config/$CONFIG"
+    ln -sf $BASE_DIR/.config/$CONFIG ~/.config/$CONFIG | echo "linked $CONFIG" | echo "linked .config/$CONFIG"
   fi
 done
 
