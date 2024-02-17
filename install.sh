@@ -1,7 +1,5 @@
 #! /bin/bash
-ORIGIN_DIR="$(pwd)"
-BASE_DIR="$( dirname "${BASH_SOURCE[0]}")"
-cd $BASE_DIR
+BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 for ENTRY in `ls -a $BASE_DIR`
 do
@@ -32,5 +30,3 @@ elif [ -n "$ZSH_VERSION" ]; then
   source ~/.zshrc
   echo "Run: source reloaded ~/.zshrc"
 fi
-
-cd $ORIGIN_DIR
