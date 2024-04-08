@@ -24,6 +24,10 @@ export PATH="$PATH:$GOPATH/bin"
 # github
 eval "$(gh completion -s zsh)"
 
+# volta
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+
 # zsh-completions
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh-completions:$FPATH #Issue?
