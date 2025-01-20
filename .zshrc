@@ -50,3 +50,14 @@ zstyle ':vcs_info:*' actionformats '[%b|%a]'
 PROMPT='%n@%m %c'\$vcs_info_msg_0_' %# '
 precmd(){ vcs_info }
 export PATH="$HOME/.tgenv/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/ryusei/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ryusei/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/ryusei/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ryusei/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+export PATH="$PATH:~/code/work/anx/sqlpackage"
+export PATH="$PATH:~/sqlpackage"
+export PATH="$PATH:~/sqlpackage/sqlpackage"
+
+eval `/usr/libexec/path_helper -s`
