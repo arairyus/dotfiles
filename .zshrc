@@ -1,3 +1,4 @@
+eval `/usr/libexec/path_helper -s`
 if [ -f ~/.zsh_aliases ]; then
     . ~/.zsh_aliases
 fi
@@ -60,4 +61,3 @@ export PATH="$PATH:~/code/work/anx/sqlpackage"
 export PATH="$PATH:~/sqlpackage"
 export PATH="$PATH:~/sqlpackage/sqlpackage"
 
-eval `/usr/libexec/path_helper -s`
