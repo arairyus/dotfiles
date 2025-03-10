@@ -1,7 +1,11 @@
-eval `/usr/libexec/path_helper -s`
 if [ -f ~/.zsh_aliases ]; then
     . ~/.zsh_aliases
 fi
+
+# golang
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/shims:$PATH"
+eval "$(goenv init -)"
 
 # Cloud
 ## google cloud
@@ -14,13 +18,6 @@ export PATH=/usr/local/bin/aws_completer:$PATH
 fpath=($fpath ~/.zsh/completion)
 autoload bashcompinit && bashcompinit
 complete -C '/usr/local/bin/aws_completer' aws
-
-# golang
-export GOENV_ROOT="$HOME/.goenv"
-export PATH="$GOENV_ROOT/bin:$PATH"
-eval "$(goenv init -)"
-export PATH="$GOROOT/bin:$PATH"
-export PATH="$PATH:$GOPATH/bin"
 
 # github
 eval "$(gh completion -s zsh)"
@@ -60,4 +57,6 @@ if [ -f '/Users/ryusei/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . 
 export PATH="$PATH:~/code/work/anx/sqlpackage"
 export PATH="$PATH:~/sqlpackage"
 export PATH="$PATH:~/sqlpackage/sqlpackage"
+
+# eval `/usr/libexec/path_helper -s`
 
