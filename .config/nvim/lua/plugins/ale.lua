@@ -4,6 +4,7 @@
 return {
   "dense-analysis/ale",
   event = { "BufReadPre", "BufNewFile" },
+  cmd = { "ALEEnable", "ALEInfo", "ALEFix", "ALELint" },
   config = function()
     -- Linters configuration (based on VSCode extensions)
     vim.g.ale_linters = {
