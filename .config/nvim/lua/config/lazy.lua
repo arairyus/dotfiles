@@ -1,4 +1,3 @@
--- 1. lazy.nvim本体を自動インストールする（すでにあるコードとほぼ同じ）
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -15,18 +14,40 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- 2. キー設定（重要：プラグインを入れる前に設定する必要がある）
-vim.g.mapleader = " " -- スペースキーをリーダーキー（ショートカットの起点）にする
-vim.g.maplocalleader = "\\"
-
--- 3. lazy.nvimの起動
 require("lazy").setup({
   spec = {
-    -- lua/plugins フォルダの中身をすべて自動的に読み込む
+    -- add LazyVim and import its plugins
+    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+    -- import/override with your plugins
     { import = "plugins" },
   },
-  -- インストール中に使うカラースキーム（デフォルトで入っているもの）
-  install = { colorscheme = { "habamax" } },
-  -- アップデートを自動チェックする
-  checker = { enabled = true },
+  defaults = {
+    -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
+    -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
+    lazy = false,
+    -- It's recommended to leave version=false for now, since a lot the plugin that support versioning,
+    -- have outdated releases, which may break your Neovim install.
+    version = false, -- always use the latest git commit
+    -- version = "*", -- try installing the latest stable version for plugins that support semver
+  },
+  install = { colorscheme = { "tokyonight", "habamax" } },
+  checker = {
+    enabled = true, -- check for plugin updates periodically
+    notify = false, -- notify on update
+  }, -- automatically check for plugin updates
+  performance = {
+    rtp = {
+      -- disable some rtp plugins
+      disabled_plugins = {
+        "gzip",
+        -- "matchit",
+        -- "matchparen",
+        -- "netrwPlugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
+    },
+  },
 })
