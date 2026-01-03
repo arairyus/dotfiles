@@ -2,6 +2,9 @@ if [ -f ~/.zsh_aliases ]; then
     . ~/.zsh_aliases
 fi
 
+# local bin (claude, etc.)
+export PATH="$HOME/.local/bin:$PATH"
+
 # golang
 export GOENV_ROOT="$HOME/.goenv"
 export PATH="$GOENV_ROOT/shims:$PATH"
