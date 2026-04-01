@@ -63,3 +63,9 @@ export PATH="$PATH:~/sqlpackage/sqlpackage"
 
 # eval `/usr/libexec/path_helper -s`
 
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/ryusei/.lmstudio/bin"
+# End of LM Studio CLI section
+
+
