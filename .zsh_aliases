@@ -3,8 +3,9 @@ alias python="python3"
 alias pip="pip3" 
 alias tg='terragrunt'
 alias tf='terraform'
-# alias docker='podman'
-alias dk='docker'
+alias docker='podman'
+alias docker-compose='podman compose'
+alias dk='podman'
 alias ll='ls -l'
 alias la='ls -al'
 # enable color support of ls and also add handy aliases
