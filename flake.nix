@@ -197,7 +197,7 @@
                   USE_GKE_GCLOUD_AUTH_PLUGIN = "True";
                 };
 
-                initExtra = ''
+                initContent = ''
                   # PATH
                   export PATH="$HOME/.local/bin:$PATH"
                   export PATH="$GOENV_ROOT/shims:$PATH"
