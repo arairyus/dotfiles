@@ -149,6 +149,17 @@
                 autosuggestion.enable = true;
                 enableCompletion = true;
 
+                profileExtra = ''
+                  # ssh-agent
+                  if [ -z "$SSH_AUTH_SOCK" ]; then
+                    RUNNING_AGENT="$(ps -ax | grep 'ssh-agent -s' | grep -v grep | wc -l | tr -d '[:space:]')"
+                    if [ "$RUNNING_AGENT" = "0" ]; then
+                      ssh-agent -s &> $HOME/.ssh/ssh-agent
+                    fi
+                    eval "$(cat $HOME/.ssh/ssh-agent)"
+                  fi
+                '';
+
                 shellAliases = {
                   python = "python3";
                   pip = "pip3";
@@ -174,20 +185,23 @@
                   export PATH="$GOENV_ROOT/shims:$PATH"
                   export PATH="$HOME/.volta/bin:$PATH"
                   export PATH="$HOME/.tgenv/bin:$PATH"
-                  export PATH="$PATH:/Users/ryusei/.lmstudio/bin"
+                  export PATH="$PATH:$HOME/.lmstudio/bin"
 
-                  # goenv
-                  eval "$(goenv init -)"
+                  # goenv (only if installed)
+                  if command -v goenv &>/dev/null; then
+                    eval "$(goenv init -)"
+                  fi
 
                   # Google Cloud SDK
                   if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
                   if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
 
-                  # AWS
-                  export PATH=/usr/local/bin/aws_completer:$PATH
-                  fpath=($fpath ~/.zsh/completion)
-                  autoload bashcompinit && bashcompinit
-                  complete -C '/usr/local/bin/aws_completer' aws
+                  # AWS completion
+                  if command -v aws_completer &>/dev/null; then
+                    fpath=($fpath ~/.zsh/completion)
+                    autoload bashcompinit && bashcompinit
+                    complete -C "$(command -v aws_completer)" aws
+                  fi
 
                   # GitHub CLI completion
                   eval "$(gh completion -s zsh)"
