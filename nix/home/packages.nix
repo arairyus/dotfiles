@@ -71,7 +71,6 @@
     poetry            # Python dependency management
     pre-commit        # git pre-commit hook framework
     cookiecutter      # project template generator
-    lastpass-cli      # LastPass CLI
     postgresql_14     # PostgreSQL 14
 
     # 1Password CLI
