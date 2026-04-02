@@ -58,6 +58,7 @@
                 "atlassian/acli"
                 "azure/azd"
                 "azure/functions"
+                "goodwithtech/r"
                 "kong/deck"
                 "kreuzwerker/taps"
                 "microsoft/mssql-release"
@@ -76,6 +77,7 @@
                 "azcopy"
                 "cfn-lint"
                 "codex"
+                "goodwithtech/r/dockle"
                 "kong/deck/deck"
                 "kreuzwerker/taps/m1-terraform-provider-helper"
                 "localstack"
@@ -163,10 +165,9 @@
 
                 # Kubernetes & DevOps
                 argocd
-                dockle
                 eksctl
                 hadolint
-                helm
+                kubernetes-helm
                 infracost
                 k9s
                 kubectx
