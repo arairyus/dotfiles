@@ -1,27 +1,41 @@
 # dotfiles
 
-Clone this repository to your home directory
+macOS (aarch64-darwin) 環境を Nix (nix-darwin + home-manager) で管理する dotfiles。
+
+## セットアップ
 
 ```bash
-cd ~
-# Run git clone or gh repo clone
+git clone git@github.com:arairyus/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+./setup.sh
 ```
 
+`setup.sh` は以下を実行する:
 
-## codespace
+1. Nix インストール (Determinate Systems)
+2. nix-darwin + home-manager ビルド & 適用
+3. Nix 外ツールのインストール (GitHub Copilot CLI, goenv)
+4. Neovim 設定の symlink
 
-> 新しい codespace を作成すると、GitHub は選択したドットファイルのリポジトリを codespace 環境にクローンし、次のいずれかのファイルを探して環境を設定します。
-> 
-> install.sh  
-> install  
-> bootstrap.sh  
-> bootstrap  
-> script/bootstrap  
-> setup.sh  
-> setup  
-> script/setup  
-> インストールスクリプトが存在しない場合: .から始まるファイル, フォルダに対するシンボリックリンクをホームディレクトリに設定する.
+## 構造
 
-### 設定手順
+```
+flake.nix                  # エントリポイント
+nix/
+  hosts/MBA-M2/            # ホスト固有設定
+  darwin/                   # macOS システム設定 (Dock, Finder, キーボード等)
+  home/                     # home-manager モジュール
+    packages.nix            # パッケージ一覧
+    zsh.nix                 # シェル設定
+    git.nix                 # Git 設定
+config/
+  nvim/                     # Neovim 設定 (LazyVim)
+setup.sh                   # ブートストラップスクリプト
+homebrew/Brewfile           # 旧 Homebrew 設定 (参照用)
+```
 
-[Codespaces のドットファイル リポジトリを有効にする](https://docs.github.com/ja/codespaces/setting-your-user-preferences/personalizing-github-codespaces-for-your-account#codespaces-%E3%81%AE%E3%83%89%E3%83%83%E3%83%88%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB-%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92%E6%9C%89%E5%8A%B9%E3%81%AB%E3%81%99%E3%82%8B)
+## 設定変更の適用
+
+```bash
+sudo /run/current-system/sw/bin/darwin-rebuild switch --flake ~/dotfiles
+```
