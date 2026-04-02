@@ -61,14 +61,14 @@ else
 fi
 
 # ----------------------------------------------------------
-# 3. Post-setup: tools outside Nix
+# 3. Post-setup: tools outside Nix (run as current user)
 # ----------------------------------------------------------
 echo "==> Post-setup..."
 
 # GitHub Copilot CLI
 if ! command -v copilot &>/dev/null; then
   echo "    Installing GitHub Copilot CLI..."
-  curl -fsSL https://gh.io/copilot-install | bash
+  sudo -u "${SUDO_USER:-$USER}" bash -c 'curl -fsSL https://gh.io/copilot-install | bash'
 else
   echo "    GitHub Copilot CLI: ✓"
 fi
@@ -76,7 +76,7 @@ fi
 # goenv
 if [ ! -d "$HOME/.goenv" ]; then
   echo "    Installing goenv..."
-  git clone https://github.com/go-nv/goenv.git "$HOME/.goenv"
+  sudo -u "${SUDO_USER:-$USER}" git clone https://github.com/go-nv/goenv.git "$HOME/.goenv"
 else
   echo "    goenv: ✓"
 fi
