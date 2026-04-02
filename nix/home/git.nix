@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   programs.git = {
@@ -21,7 +21,21 @@
       };
 
       branch.sort = "-authordate";
+
+      credential."https://github.com" = {
+        helper = [
+          ""
+          "!${pkgs.gh}/bin/gh auth git-credential"
+        ];
+      };
+      credential."https://gist.github.com" = {
+        helper = [
+          ""
+          "!${pkgs.gh}/bin/gh auth git-credential"
+        ];
+      };
       credential."https://source.developers.google.com".helper = "gcloud.sh";
+
       url."https://:@github.com".insteadOf = "https://github.com";
     };
 
