@@ -1,0 +1,13 @@
+# devenv + direnv integration
+# Copy this file to your project root as `.envrc` and run `direnv allow`
+#
+# Usage:
+#   cp ~/dotfiles/samples/.envrc.devenv .envrc
+#   direnv allow
+
+if ! has devenv; then
+  log_error 'devenv not found. Install it: https://devenv.sh'
+  exit 1
+fi
+
+eval "$(devenv print-dev-env)"
