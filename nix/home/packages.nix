@@ -18,7 +18,6 @@
     mtr               # network diagnostics (traceroute + ping)
     neovim            # modern vim
     shellcheck        # shell script linter
-    sl                # steam locomotive 🚂
     tmux              # terminal multiplexer
     tree              # directory tree viewer
     vegeta            # HTTP load testing tool
