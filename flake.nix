@@ -44,6 +44,8 @@
               primaryUser = username;
             };
 
+            nix.enable = false;
+
             users.users."${username}" = {
               home = homedir;
             };
