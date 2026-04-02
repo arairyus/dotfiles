@@ -6,6 +6,7 @@
     actionlint        # GitHub Actions workflow linter
     bat               # cat with syntax highlighting
     coreutils         # GNU core utilities
+    devenv            # reproducible dev environments
     fd                # find alternative (fast, user-friendly)
     fzf               # fuzzy finder
     gh                # GitHub CLI
