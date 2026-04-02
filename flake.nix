@@ -175,6 +175,63 @@
 
               programs.zsh = {
                 enable = true;
+                autosuggestion.enable = true;
+                enableCompletion = true;
+
+                shellAliases = {
+                  python = "python3";
+                  pip = "pip3";
+                  tg = "terragrunt";
+                  tf = "terraform";
+                  docker = "podman";
+                  docker-compose = "podman compose";
+                  dk = "podman";
+                  ll = "ls -l";
+                  la = "ls -al";
+                  k = "kubectl";
+                };
+
+                sessionVariables = {
+                  GOENV_ROOT = "$HOME/.goenv";
+                  VOLTA_HOME = "$HOME/.volta";
+                  USE_GKE_GCLOUD_AUTH_PLUGIN = "True";
+                };
+
+                initExtra = ''
+                  # PATH
+                  export PATH="$HOME/.local/bin:$PATH"
+                  export PATH="$GOENV_ROOT/shims:$PATH"
+                  export PATH="$HOME/.volta/bin:$PATH"
+                  export PATH="$HOME/.tgenv/bin:$PATH"
+                  export PATH="$PATH:/Users/ryusei/.lmstudio/bin"
+
+                  # goenv
+                  eval "$(goenv init -)"
+
+                  # Google Cloud SDK
+                  if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
+                  if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
+
+                  # AWS
+                  export PATH=/usr/local/bin/aws_completer:$PATH
+                  fpath=($fpath ~/.zsh/completion)
+                  autoload bashcompinit && bashcompinit
+                  complete -C '/usr/local/bin/aws_completer' aws
+
+                  # GitHub CLI completion
+                  eval "$(gh completion -s zsh)"
+
+                  # Prompt (vcs_info)
+                  autoload -Uz vcs_info
+                  setopt prompt_subst
+                  zstyle ':vcs_info:git:*' check-for-changes true
+                  zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
+                  zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
+                  zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
+                  zstyle ':vcs_info:*' actionformats '[%b|%a]'
+                  PROMPT="%n@%m %c\$vcs_info_msg_0_ %# "
+                  precmd(){ vcs_info }
+                '';
               };
             };
           }
