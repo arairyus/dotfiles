@@ -42,6 +42,7 @@
     initContent = ''
       # PATH
       export PATH="$HOME/.local/bin:$PATH"
+      export PATH="$GOENV_ROOT/bin:$PATH"
       export PATH="$GOENV_ROOT/shims:$PATH"
       export PATH="$HOME/.volta/bin:$PATH"
       export PATH="$HOME/.tgenv/bin:$PATH"
