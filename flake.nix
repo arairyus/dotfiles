@@ -49,6 +49,20 @@
             }
           ];
         };
+
+        "devcontainer" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "aarch64-linux";
+            config.allowUnfree = true;
+          };
+          modules = [
+            ./nix/home
+            {
+              home.username = "vscode";
+              home.homeDirectory = "/home/vscode";
+            }
+          ];
+        };
       };
     };
 }
