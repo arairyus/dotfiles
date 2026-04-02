@@ -22,12 +22,15 @@
       pip = "pip3";
       tg = "terragrunt";
       tf = "terraform";
+      tfdoc = "terraform-docs";
+      tfscan = "terrascan";
       docker = "podman";
       docker-compose = "podman compose";
       dk = "podman";
       ll = "ls -l";
       la = "ls -al";
       k = "kubectl";
+      kx = "kubectx";
     };
 
     sessionVariables = {
@@ -42,6 +45,7 @@
       export PATH="$GOENV_ROOT/shims:$PATH"
       export PATH="$HOME/.volta/bin:$PATH"
       export PATH="$HOME/.tgenv/bin:$PATH"
+      export PATH="$HOME/.tfenv/bin:$PATH"
       export PATH="$PATH:$HOME/.lmstudio/bin"
 
       # goenv (only if installed)

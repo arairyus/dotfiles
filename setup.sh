@@ -81,6 +81,14 @@ else
   echo "    goenv: ✓"
 fi
 
+# tfenv
+if [ ! -d "$HOME/.tfenv" ]; then
+  echo "    Installing tfenv..."
+  sudo -u "${SUDO_USER:-$USER}" git clone https://github.com/tfutils/tfenv.git "$HOME/.tfenv"
+else
+  echo "    tfenv: ✓"
+fi
+
 # Neovim config (symlink)
 NVIM_SRC="$SCRIPT_DIR/config/nvim"
 NVIM_DST="$HOME/.config/nvim"
