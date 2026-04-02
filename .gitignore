@@ -3,3 +3,4 @@ result
 .direnv
 .devenv
 .devenv.flake.nix
+.devenv.lock

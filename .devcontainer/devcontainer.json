@@ -1,0 +1,18 @@
+{
+  "name": "dotfiles-dev",
+  "build": {
+    "dockerfile": "../devcontainer/Dockerfile",
+    "context": ".."
+  },
+  "remoteUser": "vscode",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "jnoortheen.nix-ide",
+        "foxundermoon.shell-format",
+        "timonwong.shellcheck"
+      ]
+    }
+  },
+  "postCreateCommand": "echo 'dotfiles devcontainer ready!'"
+}
