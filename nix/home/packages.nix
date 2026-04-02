@@ -59,6 +59,7 @@
     # Languages & version managers
     ansible           # IT automation
     ansible-lint      # Ansible playbook linter
+    bun               # JavaScript runtime & package manager
     nodejs            # Node.js runtime
     php               # PHP runtime
     nodenv            # Node.js version manager

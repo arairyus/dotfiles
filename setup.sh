@@ -97,6 +97,15 @@ else
   echo "    aws-sam-cli: ✓"
 fi
 
+# Bun global packages (from bun/package.json)
+BUN_DIR="$SCRIPT_DIR/bun"
+if [ -f "$BUN_DIR/package.json" ]; then
+  echo "    Installing bun global packages..."
+  sudo -u "${SUDO_USER:-$USER}" bash -c "cd $BUN_DIR && bun install --frozen-lockfile"
+else
+  echo "    bun/package.json not found, skipping"
+fi
+
 # Neovim config (symlink)
 NVIM_SRC="$SCRIPT_DIR/config/nvim"
 NVIM_DST="$HOME/.config/nvim"

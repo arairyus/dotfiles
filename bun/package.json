@@ -1,0 +1,7 @@
+{
+  "name": "global-bun-packages",
+  "description": "Globally installed bun packages managed by dotfiles",
+  "dependencies": {
+    "@anthropic-ai/claude-code": "2.1.89"
+  }
+}
