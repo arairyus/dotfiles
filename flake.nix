@@ -117,7 +117,6 @@
                 azure-cli
                 azure-storage-azcopy
                 trivy
-                localstack
                 checkov
                 ssm-session-manager-plugin
 
