@@ -89,6 +89,14 @@ else
   echo "    tfenv: ✓"
 fi
 
+# aws-sam-cli
+if ! command -v sam &>/dev/null; then
+  echo "    Installing aws-sam-cli..."
+  sudo -u "${SUDO_USER:-$USER}" pipx install aws-sam-cli
+else
+  echo "    aws-sam-cli: ✓"
+fi
+
 # Neovim config (symlink)
 NVIM_SRC="$SCRIPT_DIR/config/nvim"
 NVIM_DST="$HOME/.config/nvim"
