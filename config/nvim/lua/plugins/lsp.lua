@@ -30,6 +30,7 @@ return {
         ansible = { "ansible_lint" },
         terraform = { "tflint" },
         tf = { "tflint" },
+        markdown = { "textlint" },
         -- yaml.github-actionsはGitHub Actionsファイル専用のfiletype
         ["yaml.github-actions"] = { "actionlint" },
       },

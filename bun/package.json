@@ -2,6 +2,10 @@
   "name": "global-bun-packages",
   "description": "Globally installed bun packages managed by dotfiles",
   "dependencies": {
-    "@anthropic-ai/claude-code": "2.1.89"
+    "@anthropic-ai/claude-code": "2.1.89",
+    "textlint": "14.7.1",
+    "textlint-rule-preset-ja-technical-writing": "12.0.2",
+    "textlint-rule-preset-japanese": "10.0.4",
+    "textlint-rule-spellcheck-tech-word": "5.0.0"
   }
 }
