@@ -41,6 +41,7 @@
     initContent = ''
       # Environment
       export GOENV_ROOT="$HOME/.goenv"
+      export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#888888"
 
       # PATH
       export PATH="$HOME/.local/bin:$PATH"
