@@ -34,12 +34,14 @@
     };
 
     sessionVariables = {
-      GOENV_ROOT = "$HOME/.goenv";
       VOLTA_HOME = "$HOME/.volta";
       USE_GKE_GCLOUD_AUTH_PLUGIN = "True";
     };
 
     initContent = ''
+      # Environment
+      export GOENV_ROOT="$HOME/.goenv"
+
       # PATH
       export PATH="$HOME/.local/bin:$PATH"
       export PATH="$GOENV_ROOT/bin:$PATH"
