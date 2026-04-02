@@ -58,21 +58,15 @@
                 "atlassian/acli"
                 "azure/azd"
                 "azure/functions"
-                "derailed/k9s"
-                "goodwithtech/r"
                 "kong/deck"
                 "kreuzwerker/taps"
                 "microsoft/mssql-release"
                 "powershell/tap"
-                "weaveworks/tap"
               ];
 
               brews = [
-                "actionlint"
-                "ansible"
-                "ansible-lint"
+                # Cloud & Infra CLI (Homebrew-specific taps or better managed here)
                 "aquasecurity/trivy/trivy"
-                "argocd"
                 "atlassian/acli/acli"
                 "awscli"
                 "aws-sam-cli"
@@ -80,78 +74,43 @@
                 "azure/azd/azd"
                 "azure/functions/azure-functions-core-tools@4"
                 "azcopy"
-                "bat"
                 "cfn-lint"
-                "checkov"
                 "codex"
-                "composer"
-                "cookiecutter"
-                "coreutils"
-                "derailed/k9s/k9s"
-                "direnv"
-                "docutils"
-                "fd"
-                "flake8"
-                "fzf"
-                "gh"
-                "ghostscript"
-                "git-filter-repo"
-                "git-secrets"
-                "gitleaks"
-                "goenv"
-                "golangci-lint"
-                "goodwithtech/r/dockle"
-                "graphviz"
-                "hadolint"
-                "helm"
-                "httpie"
-                "imagemagick"
-                "infracost"
-                "jq"
                 "kong/deck/deck"
                 "kreuzwerker/taps/m1-terraform-provider-helper"
-                "kubectx"
-                "kustomize"
-                "lastpass-cli"
-                "lazygit"
                 "localstack"
                 "microsoft/mssql-release/mssql-tools18"
-                "minikube"
-                "mtr"
-                "mysql-client"
-                "neovim"
                 "newrelic-cli"
-                "node"
+                "powershell/tap/powershell"
+
+                # Version managers (need Homebrew for proper env integration)
+                "goenv"
                 "nodenv"
+                "pyenv"
+                "rbenv"
+                "tfenv"
+                "volta"
+
+                # Language-specific tools (Homebrew versions better for compat)
+                "ansible"
+                "ansible-lint"
+                "checkov"
+                "composer"
+                "cookiecutter"
+                "docutils"
+                "flake8"
+                "lastpass-cli"
+                "mysql-client"
+                "node"
                 "pipx"
                 "poetry"
                 "postgresql@14"
-                "powershell/tap/powershell"
                 "pre-commit"
-                "pyenv"
                 "python-markdown"
                 "python@3.10"
                 "python@3.11"
                 "python@3.8"
-                "rbenv"
                 "rustup"
-                "shellcheck"
-                "sl"
-                "terraform-docs"
-                "terrascan"
-                "tfcmt"
-                "tfenv"
-                "tflint"
-                "tfsec"
-                "tmux"
-                "tree"
-                "vegeta"
-                "volta"
-                "weaveworks/tap/eksctl"
-                "wget"
-                "yq"
-                "zsh-autosuggestions"
-                "zsh-completions"
               ];
 
               casks = [
@@ -172,6 +131,58 @@
               home.stateVersion = "25.05";
               home.username = username;
               home.homeDirectory = homedir;
+
+              home.packages = with pkgs; [
+                # CLI utilities
+                actionlint
+                bat
+                coreutils
+                fd
+                fzf
+                gh
+                ghostscript
+                graphviz
+                httpie
+                imagemagick
+                jq
+                lazygit
+                mtr
+                neovim
+                shellcheck
+                sl
+                tmux
+                tree
+                vegeta
+                wget
+                yq
+
+                # Git tools
+                git-filter-repo
+                git-secrets
+                gitleaks
+
+                # Kubernetes & DevOps
+                argocd
+                dockle
+                eksctl
+                hadolint
+                helm
+                infracost
+                k9s
+                kubectx
+                kustomize
+                minikube
+
+                # IaC / Terraform
+                golangci-lint
+                terraform-docs
+                terrascan
+                tflint
+                tfsec
+
+                # direnv
+                direnv
+              ];
 
               programs.zsh = {
                 enable = true;
