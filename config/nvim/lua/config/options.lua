@@ -13,12 +13,4 @@ vim.opt.undofile = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.spelllang = { "en", "cjk" }
-vim.opt.spell = false
-
--- Disable spell check for markdown (Japanese triggers false positives)
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown" },
-  callback = function()
-    vim.opt_local.spell = false
-  end,
-})
+vim.opt.spell = true
