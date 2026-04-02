@@ -78,7 +78,6 @@
     _1password-cli    # 1Password CLI (op)
 
     # Other
-    direnv            # per-directory environment variables
     powershell        # PowerShell cross-platform
   ];
 }
