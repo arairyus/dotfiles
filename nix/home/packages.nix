@@ -61,6 +61,7 @@
     ansible           # IT automation
     ansible-lint      # Ansible playbook linter
     nodejs            # Node.js runtime
+    php               # PHP runtime
     nodenv            # Node.js version manager
     pyenv             # Python version manager
     rbenv             # Ruby version manager
