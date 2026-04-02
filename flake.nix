@@ -31,6 +31,7 @@
 
     pkgs = import nixpkgs {
       inherit system;
+      config.allowUnfree = true;
     };
   in {
     darwinConfigurations = {
@@ -51,77 +52,7 @@
             };
 
             homebrew = {
-              enable = true;
-
-              taps = [
-                "aquasecurity/trivy"
-                "atlassian/acli"
-                "azure/azd"
-                "azure/functions"
-                "goodwithtech/r"
-                "kong/deck"
-                "kreuzwerker/taps"
-                "microsoft/mssql-release"
-                "powershell/tap"
-              ];
-
-              brews = [
-                # Cloud & Infra CLI (Homebrew-specific taps or better managed here)
-                "aquasecurity/trivy/trivy"
-                "atlassian/acli/acli"
-                "awscli"
-                "aws-sam-cli"
-                "azure-cli"
-                "azure/azd/azd"
-                "azure/functions/azure-functions-core-tools@4"
-                "azcopy"
-                "cfn-lint"
-                "codex"
-                "goodwithtech/r/dockle"
-                "kong/deck/deck"
-                "kreuzwerker/taps/m1-terraform-provider-helper"
-                "localstack"
-                "microsoft/mssql-release/mssql-tools18"
-                "newrelic-cli"
-                "powershell/tap/powershell"
-
-                # Version managers (need Homebrew for proper env integration)
-                "goenv"
-                "nodenv"
-                "pyenv"
-                "rbenv"
-                "tfenv"
-                "volta"
-
-                # Language-specific tools (Homebrew versions better for compat)
-                "ansible"
-                "ansible-lint"
-                "checkov"
-                "composer"
-                "cookiecutter"
-                "docutils"
-                "flake8"
-                "lastpass-cli"
-                "mysql-client"
-                "node"
-                "pipx"
-                "poetry"
-                "postgresql@14"
-                "pre-commit"
-                "python-markdown"
-                "python@3.10"
-                "python@3.11"
-                "python@3.8"
-                "rustup"
-              ];
-
-              casks = [
-                "1password-cli"
-                "ghostty"
-                "inso"
-                "session-manager-plugin"
-                "slite"
-              ];
+              enable = false;
             };
           }
           home-manager.darwinModules.home-manager
@@ -181,8 +112,37 @@
                 tflint
                 tfsec
 
-                # direnv
+                # Cloud CLIs
+                awscli2
+                azure-cli
+                azure-storage-azcopy
+                trivy
+                localstack
+                checkov
+                ssm-session-manager-plugin
+
+                # Languages & version managers
+                ansible
+                ansible-lint
+                nodejs
+                nodenv
+                pyenv
+                rbenv
+                rustup
+                volta
+                pipx
+                poetry
+                pre-commit
+                cookiecutter
+                lastpass-cli
+                postgresql_14
+
+                # 1Password CLI
+                _1password-cli
+
+                # Other
                 direnv
+                powershell
               ];
 
               programs.zsh = {
