@@ -1,5 +1,5 @@
 {
-  description = "ryusei's dotfiles — macOS environment managed by Nix";
+  description = "ryusei's dotfiles — managed by Nix (macOS + Linux)";
 
   inputs = {
     nixpkgs = {
@@ -29,8 +29,26 @@
       mba-m2 = import ./nix/hosts/MBA-M2 { inherit inputs; };
     in
     {
+      # macOS (nix-darwin + home-manager)
       darwinConfigurations = {
         ${mba-m2.hostname} = mba-m2.darwinConfiguration;
+      };
+
+      # Linux / Codespaces (standalone home-manager)
+      homeConfigurations = {
+        "codespaces" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
+          modules = [
+            ./nix/home
+            {
+              home.username = "codespace";
+              home.homeDirectory = "/home/codespace";
+            }
+          ];
+        };
       };
     };
 }

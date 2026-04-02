@@ -20,9 +20,15 @@ curl -fsSL https://nixos.org/nix/install | bash -s -- --no-daemon
 nix-channel --update
 EOS
 
-# Copy dotfiles for testing
 COPY --chown=${WORKUSER}:${WORKUSER} . /var/dotfiles
-
 WORKDIR /var/dotfiles
 
+# Build home-manager config
+RUN <<EOS
+. ~/.nix-profile/etc/profile.d/nix.sh
+HM_CONFIG=codespaces nix run home-manager -- switch --flake .#codespaces
+nix store gc
+EOS
+
+WORKDIR /home/${WORKUSER}
 CMD ["bash", "--login"]

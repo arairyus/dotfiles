@@ -35,6 +35,7 @@ fi
 
 echo "==> dotfiles setup for host: $HOSTNAME_SHORT"
 echo "    directory: $SCRIPT_DIR"
+echo "    OS: $(uname)"
 
 # ----------------------------------------------------------
 # 1. Nix (Determinate Systems installer)
@@ -48,27 +49,49 @@ if ! command -v nix &>/dev/null; then
 fi
 
 # ----------------------------------------------------------
-# 2. nix-darwin build
+# 2. System build (OS-dependent)
 # ----------------------------------------------------------
-DARWIN_REBUILD="/run/current-system/sw/bin/darwin-rebuild"
+OS="$(uname)"
+if [[ "$OS" == "Darwin" ]]; then
+  # macOS: nix-darwin + home-manager
+  DARWIN_REBUILD="/run/current-system/sw/bin/darwin-rebuild"
 
-if [ -x "$DARWIN_REBUILD" ]; then
-  echo "==> Rebuilding nix-darwin..."
-  sudo "$DARWIN_REBUILD" switch --flake "$SCRIPT_DIR#$HOSTNAME_SHORT"
+  if [ -x "$DARWIN_REBUILD" ]; then
+    echo "==> Rebuilding nix-darwin..."
+    sudo "$DARWIN_REBUILD" switch --flake "$SCRIPT_DIR#$HOSTNAME_SHORT"
+  else
+    echo "==> Bootstrapping nix-darwin (first run)..."
+    sudo nix run nix-darwin -- switch --flake "$SCRIPT_DIR#$HOSTNAME_SHORT"
+  fi
 else
-  echo "==> Bootstrapping nix-darwin (first run)..."
-  sudo nix run nix-darwin -- switch --flake "$SCRIPT_DIR#$HOSTNAME_SHORT"
+  # Linux / Codespaces: standalone home-manager
+  HM_CONFIG="${HM_CONFIG:-codespaces}"
+  echo "==> Building home-manager (config: $HM_CONFIG)..."
+
+  if ! command -v home-manager &>/dev/null; then
+    echo "    Installing home-manager..."
+    nix run home-manager -- switch --flake "$SCRIPT_DIR#$HM_CONFIG" -b bak
+  else
+    home-manager switch --flake "$SCRIPT_DIR#$HM_CONFIG" -b bak
+  fi
 fi
 
 # ----------------------------------------------------------
-# 3. Post-setup: tools outside Nix (run as current user)
+# 3. Post-setup: tools outside Nix
 # ----------------------------------------------------------
 echo "==> Post-setup..."
+
+# Run commands as the actual user (macOS runs setup.sh via sudo)
+if [[ "$OS" == "Darwin" ]]; then
+  RUN_AS="sudo -u ${SUDO_USER:-$USER}"
+else
+  RUN_AS=""
+fi
 
 # GitHub Copilot CLI
 if ! command -v copilot &>/dev/null; then
   echo "    Installing GitHub Copilot CLI..."
-  sudo -u "${SUDO_USER:-$USER}" bash -c 'curl -fsSL https://gh.io/copilot-install | bash'
+  $RUN_AS bash -c 'curl -fsSL https://gh.io/copilot-install | bash'
 else
   echo "    GitHub Copilot CLI: ✓"
 fi
@@ -76,7 +99,7 @@ fi
 # goenv
 if [ ! -d "$HOME/.goenv" ]; then
   echo "    Installing goenv..."
-  sudo -u "${SUDO_USER:-$USER}" git clone https://github.com/go-nv/goenv.git "$HOME/.goenv"
+  $RUN_AS git clone https://github.com/go-nv/goenv.git "$HOME/.goenv"
 else
   echo "    goenv: ✓"
 fi
@@ -84,7 +107,7 @@ fi
 # tfenv
 if [ ! -d "$HOME/.tfenv" ]; then
   echo "    Installing tfenv..."
-  sudo -u "${SUDO_USER:-$USER}" git clone https://github.com/tfutils/tfenv.git "$HOME/.tfenv"
+  $RUN_AS git clone https://github.com/tfutils/tfenv.git "$HOME/.tfenv"
 else
   echo "    tfenv: ✓"
 fi
@@ -92,7 +115,7 @@ fi
 # aws-sam-cli
 if ! command -v sam &>/dev/null; then
   echo "    Installing aws-sam-cli..."
-  sudo -u "${SUDO_USER:-$USER}" pipx install aws-sam-cli
+  $RUN_AS pipx install aws-sam-cli
 else
   echo "    aws-sam-cli: ✓"
 fi
@@ -101,7 +124,7 @@ fi
 BUN_DIR="$SCRIPT_DIR/bun"
 if [ -f "$BUN_DIR/package.json" ]; then
   echo "    Installing bun global packages..."
-  sudo -u "${SUDO_USER:-$USER}" bash -c "cd $BUN_DIR && bun install --frozen-lockfile"
+  $RUN_AS bash -c "cd $BUN_DIR && bun install --frozen-lockfile"
 else
   echo "    bun/package.json not found, skipping"
 fi
