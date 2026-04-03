@@ -142,6 +142,23 @@ if [ -d "$NVIM_SRC" ]; then
   fi
 fi
 
+# cmux config (symlink) - macOS only
+if [[ "$OS" == "Darwin" ]]; then
+  CMUX_SRC="$SCRIPT_DIR/config/cmux/config.ghostty"
+  CMUX_DST="$HOME/Library/Application Support/com.cmuxterm.app/config.ghostty"
+  CMUX_DIR="$(dirname "$CMUX_DST")"
+  if [ -f "$CMUX_SRC" ]; then
+    mkdir -p "$CMUX_DIR"
+    if [ ! -L "$CMUX_DST" ] || [ "$(readlink "$CMUX_DST")" != "$CMUX_SRC" ]; then
+      echo "    Linking cmux config..."
+      rm -f "$CMUX_DST"
+      ln -sf "$CMUX_SRC" "$CMUX_DST"
+    else
+      echo "    cmux config: ✓"
+    fi
+  fi
+fi
+
 # ----------------------------------------------------------
 # 4. Cleanup
 # ----------------------------------------------------------

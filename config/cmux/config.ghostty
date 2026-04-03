@@ -1,0 +1,37 @@
+# cmux configuration (Ghostty format)
+# Migrated from Ghostty
+
+# Theme
+theme = tokyonight
+
+# Font
+font-family = "BIZ UDGothic Bold"
+font-size = 15
+font-thicken = true
+
+# Background transparency
+background-opacity = 0.8
+background-blur-radius = 20
+
+# Unfocused pane opacity
+unfocused-split-opacity = 0.7
+
+# Cursor
+cursor-opacity = 0.8
+cursor-color = ffffff
+
+# Window
+window-padding-x = 4
+window-padding-y = 4
+window-padding-balance = true
+window-save-state = always
+
+# macOS settings
+macos-titlebar-style = tabs
+macos-option-as-alt = true
+
+# Auto copy on select
+copy-on-select = clipboard
+
+# Working directory
+working-directory = home
