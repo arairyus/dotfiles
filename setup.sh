@@ -71,13 +71,13 @@ if [[ "$OS" == "Darwin" ]]; then
     echo "==> Rebuilding nix-darwin..."
     # shellcheck disable=SC2086
     HOSTNAME_SHORT="$HOSTNAME_SHORT" USERNAME="$USER" \
-      sudo --preserve-env=HOSTNAME_SHORT,USERNAME \
+      sudo -H --preserve-env=HOSTNAME_SHORT,USERNAME \
       "$DARWIN_REBUILD" switch --flake "$FLAKE_TARGET" $EXTRA_FLAGS
   else
     echo "==> Bootstrapping nix-darwin (first run)..."
     # shellcheck disable=SC2086
     HOSTNAME_SHORT="$HOSTNAME_SHORT" USERNAME="$USER" \
-      sudo --preserve-env=HOSTNAME_SHORT,USERNAME \
+      sudo -H --preserve-env=HOSTNAME_SHORT,USERNAME \
       nix run nix-darwin -- switch --flake "$FLAKE_TARGET" $EXTRA_FLAGS
   fi
 else
