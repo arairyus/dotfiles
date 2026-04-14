@@ -98,9 +98,11 @@ fi
 # ----------------------------------------------------------
 echo "==> Post-setup..."
 
-# Run commands as the actual user (macOS runs setup.sh via sudo)
-if [[ "$OS" == "Darwin" ]]; then
-  RUN_AS="sudo -u ${SUDO_USER:-$USER}"
+# Run commands as the actual user.
+# If setup.sh was invoked via sudo, drop back to the original user.
+# If invoked directly (no sudo), run as-is to preserve PATH.
+if [[ "$OS" == "Darwin" ]] && [[ -n "${SUDO_USER:-}" ]]; then
+  RUN_AS="sudo -u $SUDO_USER"
 else
   RUN_AS=""
 fi
