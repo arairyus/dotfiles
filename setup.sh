@@ -106,9 +106,14 @@ else
 fi
 
 # GitHub Copilot CLI
-if ! command -v copilot &>/dev/null; then
+# ~/.local/bin is already in PATH via zsh.nix, so answer "N" to the PATH prompt
+if ! $RUN_AS bash -c 'test -x "${HOME}/.local/bin/copilot"' 2>/dev/null; then
   echo "    Installing GitHub Copilot CLI..."
-  $RUN_AS bash -c 'curl -fsSL https://gh.io/copilot-install | bash'
+  $RUN_AS bash -c '
+    curl -fsSL https://gh.io/copilot-install -o /tmp/_copilot_install.sh
+    echo N | bash /tmp/_copilot_install.sh
+    rm -f /tmp/_copilot_install.sh
+  '
 else
   echo "    GitHub Copilot CLI: ✓"
 fi
