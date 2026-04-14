@@ -22,7 +22,7 @@ cd ~/dotfiles
 ```
 flake.nix                  # エントリポイント
 nix/
-  hosts/MBA-M2/            # ホスト固有設定
+  hosts/MBA-M2/            # ホスト固有設定 (ない場合は auto で自動検出)
   darwin/                   # macOS システム設定 (Dock, Finder, キーボード等)
   home/                     # home-manager モジュール
     packages.nix            # パッケージ一覧
@@ -30,12 +30,12 @@ nix/
     git.nix                 # Git 設定
 config/
   nvim/                     # Neovim 設定 (LazyVim)
+  cmux/                     # cmux (Ghostty) 設定
 setup.sh                   # ブートストラップスクリプト
-homebrew/Brewfile           # 旧 Homebrew 設定 (参照用)
 ```
 
 ## 設定変更の適用
 
 ```bash
-sudo /run/current-system/sw/bin/darwin-rebuild switch --flake ~/dotfiles
+./setup.sh
 ```
