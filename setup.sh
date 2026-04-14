@@ -99,7 +99,8 @@ fi
 echo "==> Post-setup..."
 
 # Ensure nix-managed tools are in PATH (setup.sh doesn't source .zprofile)
-export PATH="$HOME/.nix-profile/bin:/run/current-system/sw/bin:$PATH"
+ACTUAL_USER="${SUDO_USER:-$USER}"
+export PATH="/etc/profiles/per-user/$ACTUAL_USER/bin:$HOME/.nix-profile/bin:/run/current-system/sw/bin:$PATH"
 
 # Run commands as the actual user.
 # If setup.sh was invoked via sudo, drop back to the original user.
