@@ -56,12 +56,29 @@ if [[ "$OS" == "Darwin" ]]; then
   # macOS: nix-darwin + home-manager
   DARWIN_REBUILD="/run/current-system/sw/bin/darwin-rebuild"
 
+  # Determine flake target: use named config if it exists, else fall back to "auto"
+  # Known configs live under nix/hosts/<hostname>/
+  if [ -d "$SCRIPT_DIR/nix/hosts/$HOSTNAME_SHORT" ]; then
+    FLAKE_TARGET="$SCRIPT_DIR#$HOSTNAME_SHORT"
+    EXTRA_FLAGS=""
+  else
+    echo "    No host config found for '$HOSTNAME_SHORT', using auto config (--impure)"
+    FLAKE_TARGET="$SCRIPT_DIR#auto"
+    EXTRA_FLAGS="--impure"
+  fi
+
   if [ -x "$DARWIN_REBUILD" ]; then
     echo "==> Rebuilding nix-darwin..."
-    sudo "$DARWIN_REBUILD" switch --flake "$SCRIPT_DIR#$HOSTNAME_SHORT"
+    # shellcheck disable=SC2086
+    HOSTNAME_SHORT="$HOSTNAME_SHORT" USERNAME="$USER" \
+      sudo --preserve-env=HOSTNAME_SHORT,USERNAME \
+      "$DARWIN_REBUILD" switch --flake "$FLAKE_TARGET" $EXTRA_FLAGS
   else
     echo "==> Bootstrapping nix-darwin (first run)..."
-    sudo nix run nix-darwin -- switch --flake "$SCRIPT_DIR#$HOSTNAME_SHORT"
+    # shellcheck disable=SC2086
+    HOSTNAME_SHORT="$HOSTNAME_SHORT" USERNAME="$USER" \
+      sudo --preserve-env=HOSTNAME_SHORT,USERNAME \
+      nix run nix-darwin -- switch --flake "$FLAKE_TARGET" $EXTRA_FLAGS
   fi
 else
   # Linux / Codespaces: standalone home-manager
