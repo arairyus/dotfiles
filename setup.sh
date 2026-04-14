@@ -185,6 +185,21 @@ if [[ "$OS" == "Darwin" ]]; then
       echo "    cmux config: ✓"
     fi
   fi
+
+  # Ghostty config (cmux uses Ghostty engine)
+  GHOSTTY_SRC="$SCRIPT_DIR/config/cmux/config"
+  GHOSTTY_DST="$HOME/Library/Application Support/com.mitchellh.ghostty/config"
+  GHOSTTY_DIR="$(dirname "$GHOSTTY_DST")"
+  if [ -f "$GHOSTTY_SRC" ]; then
+    mkdir -p "$GHOSTTY_DIR"
+    if [ ! -L "$GHOSTTY_DST" ] || [ "$(readlink "$GHOSTTY_DST")" != "$GHOSTTY_SRC" ]; then
+      echo "    Linking ghostty config..."
+      rm -f "$GHOSTTY_DST"
+      ln -sf "$GHOSTTY_SRC" "$GHOSTTY_DST"
+    else
+      echo "    ghostty config: ✓"
+    fi
+  fi
 fi
 
 # ----------------------------------------------------------
