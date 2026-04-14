@@ -41,6 +41,12 @@
 
     ignores = [
       ".claude/settings.local.json"
+
+      # devenv
+      ".devenv*"
+      "devenv.nix"
+      "devenv.yaml"
+      "devenv.lock"
     ];
   };
 }
