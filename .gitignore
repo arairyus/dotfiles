@@ -4,3 +4,5 @@ result
 .devenv
 .devenv.flake.nix
 .devenv.lock
+.private/*
+node_modules/
