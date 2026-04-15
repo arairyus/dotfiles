@@ -56,16 +56,8 @@ if [[ "$OS" == "Darwin" ]]; then
   # macOS: nix-darwin + home-manager
   DARWIN_REBUILD="/run/current-system/sw/bin/darwin-rebuild"
 
-  # Determine flake target: use named config if it exists, else fall back to "auto"
-  # Known configs live under nix/hosts/<hostname>/
-  if [ -d "$SCRIPT_DIR/nix/hosts/$HOSTNAME_SHORT" ]; then
-    FLAKE_TARGET="$SCRIPT_DIR#$HOSTNAME_SHORT"
-    EXTRA_FLAGS=""
-  else
-    echo "    No host config found for '$HOSTNAME_SHORT', using auto config (--impure)"
-    FLAKE_TARGET="$SCRIPT_DIR#auto"
-    EXTRA_FLAGS="--impure"
-  fi
+  FLAKE_TARGET="$SCRIPT_DIR#auto"
+  EXTRA_FLAGS="--impure"
 
   if [ -x "$DARWIN_REBUILD" ]; then
     echo "==> Rebuilding nix-darwin..."

@@ -22,7 +22,6 @@ cd ~/dotfiles
 ```
 flake.nix                  # エントリポイント
 nix/
-  hosts/MBA-M2/            # ホスト固有設定 (ない場合は auto で自動検出)
   darwin/                   # macOS システム設定 (Dock, Finder, キーボード等)
   home/                     # home-manager モジュール
     packages.nix            # パッケージ一覧

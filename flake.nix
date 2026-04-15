@@ -26,9 +26,8 @@
       ...
     }:
     let
-      mba-m2 = import ./nix/hosts/MBA-M2 { inherit inputs; };
-
-      # Generic darwin config factory (reused by named hosts and auto)
+      # Darwin config factory — requires: nix ... --impure
+      # HOSTNAME_SHORT and USERNAME must be set in the environment.
       mkDarwinConfig =
         {
           hostname,
@@ -67,10 +66,6 @@
     {
       # macOS (nix-darwin + home-manager)
       darwinConfigurations = {
-        ${mba-m2.hostname} = mba-m2.darwinConfiguration;
-
-        # Fallback for any unregistered Mac — requires: nix ... --impure
-        # USERNAME and HOSTNAME_SHORT must be set in the environment.
         auto = mkDarwinConfig {
           hostname = builtins.getEnv "HOSTNAME_SHORT";
           username = builtins.getEnv "USERNAME";
