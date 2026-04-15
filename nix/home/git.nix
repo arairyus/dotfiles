@@ -17,7 +17,7 @@
         ci = "commit";
         st = "status";
         ad = "add";
-        pl = "pull origin";
+        pl = "pull -p origin";
       };
 
       branch.sort = "-authordate";
@@ -35,8 +35,6 @@
         ];
       };
       credential."https://source.developers.google.com".helper = "gcloud.sh";
-
-      url."https://:@github.com".insteadOf = "https://github.com";
     };
 
     ignores = [
