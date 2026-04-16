@@ -1,8 +1,19 @@
+# OS / editor junk
 .DS_Store
+*.swp
+*.swo
+*~
+*.orig
+*.rej
+
+# Local-only settings
+.claude/settings.local.json
+.private/*
+
+# Generated files
 result
 .direnv
 .devenv
 .devenv.flake.nix
 .devenv.lock
-.private/*
 node_modules/

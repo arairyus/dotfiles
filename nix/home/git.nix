@@ -21,6 +21,7 @@
       };
 
       branch.sort = "-authordate";
+      core.editor = "nvim";
 
       credential."https://github.com" = {
         helper = [
@@ -38,7 +39,18 @@
     };
 
     ignores = [
+      # OS / editor junk
+      ".DS_Store"
+      "*.swp"
+      "*.swo"
+      "*~"
+      "*.orig"
+      "*.rej"
+
+      # Local-only settings
       ".claude/settings.local.json"
+      ".direnv"
+      "result"
 
       # devenv
       ".devenv*"
