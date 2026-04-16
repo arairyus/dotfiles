@@ -18,6 +18,7 @@
     lazygit           # terminal UI for git
     mtr               # network diagnostics (traceroute + ping)
     neovim            # modern vim
+    pinact            # pin GitHub Actions versions
     shellcheck        # shell script linter
     tmux              # terminal multiplexer
     tree              # directory tree viewer
