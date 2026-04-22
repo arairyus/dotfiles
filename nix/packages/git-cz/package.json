@@ -1,0 +1,12 @@
+{
+  "name": "git-cz-wrapper",
+  "version": "4.9.0",
+  "private": true,
+  "bin": {
+    "git-cz": "./node_modules/git-cz/bin/git-cz.js",
+    "gitcz": "./node_modules/git-cz/bin/git-cz.js"
+  },
+  "dependencies": {
+    "git-cz": "4.9.0"
+  }
+}

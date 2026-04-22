@@ -1,5 +1,9 @@
 { pkgs, ... }:
 
+let
+  git-cz = pkgs.callPackage ../packages/git-cz { };
+in
+
 {
   home.packages = with pkgs; [
     # CLI utilities
@@ -28,6 +32,7 @@
     zizmor            # GitHub Actions security scanner
 
     # Git tools
+    git-cz            # semantic emoji git commits
     git-filter-repo   # git history rewriting
     git-secrets       # prevent committing secrets
     gitleaks          # secret detection in git repos
