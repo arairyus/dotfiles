@@ -25,6 +25,7 @@
     vegeta            # HTTP load testing tool
     wget              # file downloader
     yq                # YAML/XML/TOML processor
+    zizmor            # GitHub Actions security scanner
 
     # Git tools
     git-filter-repo   # git history rewriting
@@ -42,10 +43,12 @@
     kubectx           # switch kubectl context/namespace
     kustomize         # Kubernetes manifest customization
     minikube          # local Kubernetes cluster
+    stern             # multi pod/container log tailing for Kubernetes
 
     # IaC / Terraform
     golangci-lint     # Go linter aggregator
     terraform-docs    # Terraform documentation generator
+    vault             # HashiCorp Vault CLI
     terrascan         # IaC security scanner
     tflint            # Terraform linter
     tfsec             # Terraform security scanner
