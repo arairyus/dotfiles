@@ -57,6 +57,14 @@
       "devenv.nix"
       "devenv.yaml"
       "devenv.lock"
+
+      # terraform
+      ".spec"
     ];
+  };
+
+  # git-cz (streamich/git-cz): disable emoji prefix in commit messages
+  home.file.".git-cz.json".text = builtins.toJSON {
+    disableEmoji = true;
   };
 }
