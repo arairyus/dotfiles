@@ -81,3 +81,6 @@ copy-on-select = clipboard
 
 # 起動時のディレクトリ
 working-directory = home
+
+# desktop通知
+desktop-notifications = true
