@@ -42,6 +42,7 @@ in
     eksctl            # Amazon EKS cluster management
     hadolint          # Dockerfile linter
     kubectl           # Kubernetes CLI
+    kubelogin         # Kubernetes credential plugin for Azure AD (AKS)
     kubernetes-helm   # Kubernetes package manager
     infracost         # cloud cost estimation for IaC
     k9s               # Kubernetes terminal UI
