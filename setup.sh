@@ -105,6 +105,7 @@ fi
 
 # GitHub Copilot CLI
 # ~/.local/bin is already in PATH via zsh.nix, so answer "N" to the PATH prompt
+# shellcheck disable=SC2016
 if ! $RUN_AS bash -c 'test -x "${HOME}/.local/bin/copilot"' 2>/dev/null; then
   echo "    Installing GitHub Copilot CLI..."
   $RUN_AS bash -c '
@@ -114,6 +115,23 @@ if ! $RUN_AS bash -c 'test -x "${HOME}/.local/bin/copilot"' 2>/dev/null; then
   '
 else
   echo "    GitHub Copilot CLI: ✓"
+fi
+
+# GitHub Copilot CLI user-level hooks
+COPILOT_NOTIFY_SCRIPT="$SCRIPT_DIR/scripts/copilot-notify.sh"
+COPILOT_HOOKS_SRC="$SCRIPT_DIR/config/copilot/hooks/copilot-notifications.json"
+COPILOT_HOOKS_DIR="$HOME/.copilot/hooks"
+COPILOT_HOOKS_DST="$COPILOT_HOOKS_DIR/copilot-notifications.json"
+if [ -f "$COPILOT_HOOKS_SRC" ] && [ -f "$COPILOT_NOTIFY_SCRIPT" ]; then
+  $RUN_AS mkdir -p "$COPILOT_HOOKS_DIR"
+  $RUN_AS chmod +x "$COPILOT_NOTIFY_SCRIPT"
+  if [ ! -L "$COPILOT_HOOKS_DST" ] || [ "$(readlink "$COPILOT_HOOKS_DST")" != "$COPILOT_HOOKS_SRC" ]; then
+    echo "    Linking Copilot CLI hooks..."
+    $RUN_AS rm -f "$COPILOT_HOOKS_DST"
+    $RUN_AS ln -sf "$COPILOT_HOOKS_SRC" "$COPILOT_HOOKS_DST"
+  else
+    echo "    Copilot CLI hooks: ✓"
+  fi
 fi
 
 # goenv

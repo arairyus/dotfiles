@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "hooks": {
+    "notification": [
+      {
+        "matcher": "elicitation_dialog|permission_prompt|agent_completed|agent_idle|shell_completed",
+        "type": "command",
+        "bash": "$HOME/dotfiles/scripts/copilot-notify.sh",
+        "env": {
+          "COPILOT_NOTIFY_EVENT": "notification"
+        },
+        "timeoutSec": 5
+      }
+    ]
+  }
+}
