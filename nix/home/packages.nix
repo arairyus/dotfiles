@@ -61,7 +61,7 @@ in
 
     # Cloud CLIs
     awscli2           # AWS CLI v2
-    azure-cli         # Azure CLI
+    (azure-cli.withExtensions [ azure-cli.extensions.azure-devops ])  # Azure CLI + DevOps 拡張
     azure-storage-azcopy # Azure storage data transfer
     trivy             # container/IaC vulnerability scanner
     checkov           # IaC security/compliance scanner
