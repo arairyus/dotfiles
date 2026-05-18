@@ -73,6 +73,7 @@ in
     bun               # JavaScript runtime & package manager
     nodejs            # Node.js runtime
     php               # PHP runtime
+    temurin-bin       # Eclipse Temurin JDK (Java)
     nodenv            # Node.js version manager
     pyenv             # Python version manager
     rbenv             # Ruby version manager
