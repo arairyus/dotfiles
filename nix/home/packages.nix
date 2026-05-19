@@ -71,6 +71,7 @@ in
     ansible           # IT automation
     ansible-lint      # Ansible playbook linter
     bun               # JavaScript runtime & package manager
+    dotnet-sdk_8      # .NET SDK 8
     nodejs            # Node.js runtime
     php               # PHP runtime
     temurin-bin       # Eclipse Temurin JDK (Java)
