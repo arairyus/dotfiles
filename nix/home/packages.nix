@@ -2,6 +2,7 @@
 
 let
   git-cz = pkgs.callPackage ../packages/git-cz { };
+  terraform-mcp-server = pkgs.callPackage ../packages/terraform-mcp-server { };
 in
 
 {
@@ -54,10 +55,11 @@ in
     # IaC / Terraform
     golangci-lint     # Go linter aggregator
     terraform-docs    # Terraform documentation generator
-    vault             # HashiCorp Vault CLI
+    terraform-mcp-server  # MCP server for Terraform Registry and HCP Terraform
     terrascan         # IaC security scanner
     tflint            # Terraform linter
     tfsec             # Terraform security scanner
+    vault             # HashiCorp Vault CLI
 
     # Cloud CLIs
     awscli2           # AWS CLI v2
