@@ -24,6 +24,7 @@ in
     mtr               # network diagnostics (traceroute + ping)
     neovim            # modern vim
     pinact            # pin GitHub Actions versions
+    redis             # Redis server and CLI tools
     shellcheck        # shell script linter
     tmux              # terminal multiplexer
     tree              # directory tree viewer
