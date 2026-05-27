@@ -17,6 +17,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-FuAt2epg4wH7oNa0nvQMWZZwOL1YtpSVdEBxkeY2Heg=";
 
+  postPatch = ''
+    substituteInPlace go.mod \
+      --replace-fail "go 1.26.2" "go 1.26.1"
+  '';
+
   subPackages = [ "cmd/terraform-mcp-server" ];
 
   ldflags = [

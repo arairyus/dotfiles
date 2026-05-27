@@ -5,9 +5,8 @@ let
 in
 
 {
-  programs.zsh = {
+  programs.bash = {
     enable = true;
-    autosuggestion.enable = true;
     enableCompletion = true;
 
     profileExtra = ''
@@ -28,10 +27,9 @@ in
       USE_GKE_GCLOUD_AUTH_PLUGIN = "True";
     };
 
-    initContent = ''
+    initExtra = ''
       # Environment
       export GOENV_ROOT="$HOME/.goenv"
-      export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#888888"
 
       # PATH
       export PATH="$HOME/.local/bin:$PATH"
@@ -53,29 +51,28 @@ in
       fi
 
       # Google Cloud SDK
-      if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
-      if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
+      if [ -f "$HOME/google-cloud-sdk/path.bash.inc" ]; then . "$HOME/google-cloud-sdk/path.bash.inc"; fi
+      if [ -f "$HOME/google-cloud-sdk/completion.bash.inc" ]; then . "$HOME/google-cloud-sdk/completion.bash.inc"; fi
 
       # AWS completion
       if command -v aws_completer &>/dev/null; then
-        fpath=($fpath ~/.zsh/completion)
-        autoload bashcompinit && bashcompinit
         complete -C "$(command -v aws_completer)" aws
       fi
 
       # GitHub CLI completion
-      eval "$(gh completion -s zsh)"
+      eval "$(gh completion -s bash)"
 
-      # Prompt (vcs_info)
-      autoload -Uz vcs_info
-      setopt prompt_subst
-      zstyle ':vcs_info:git:*' check-for-changes true
-      zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
-      zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
-      zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
-      zstyle ':vcs_info:*' actionformats '[%b|%a]'
-      PROMPT="%n@%m %c\$vcs_info_msg_0_ %# "
-      precmd(){ vcs_info }
+      # Prompt (git branch/status)
+      __nix_bash_git_prompt() {
+        local branch status
+        branch="$(git branch --show-current 2>/dev/null)" || return 0
+        [ -n "$branch" ] || return 0
+        if [ -n "$(git status --porcelain 2>/dev/null)" ]; then
+          status="+"
+        fi
+        printf ' [%s%s]' "$branch" "$status"
+      }
+      PS1='\u@\h \W$(__nix_bash_git_prompt) \$ '
     '';
   };
 }
