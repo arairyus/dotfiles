@@ -1,4 +1,5 @@
 {
+  code = "/Applications/Zed.app/Contents/MacOS/cli";
   python = "python3";
   pip = "pip3";
   tg = "terragrunt";
