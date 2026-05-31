@@ -37,5 +37,7 @@
 
   nix.enable = false; # Determinate Nix manages its own daemon
 
+  security.pam.services.sudo_local.touchIdAuth = true;
+
   homebrew.enable = false;
 }
