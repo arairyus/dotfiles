@@ -9,6 +9,9 @@ usage() {
   cat <<EOF
 Usage: $0 [options]
 
+Bootstrap this machine, apply Nix-managed dotfiles, and install tools outside Nix.
+For day-to-day Nix changes, use ./apply.sh.
+
 Options:
   -h, --help        Show this help message
   --hostname SHORT  Override hostname (default: derived from system)
@@ -48,42 +51,12 @@ if ! command -v nix &>/dev/null; then
   exit 0
 fi
 
+OS="$(uname)"
+
 # ----------------------------------------------------------
 # 2. System build (OS-dependent)
 # ----------------------------------------------------------
-OS="$(uname)"
-if [[ "$OS" == "Darwin" ]]; then
-  # macOS: nix-darwin + home-manager
-  DARWIN_REBUILD="/run/current-system/sw/bin/darwin-rebuild"
-
-  FLAKE_TARGET="$SCRIPT_DIR#auto"
-  EXTRA_FLAGS="--impure"
-
-  if [ -x "$DARWIN_REBUILD" ]; then
-    echo "==> Rebuilding nix-darwin..."
-    # shellcheck disable=SC2086
-    HOSTNAME_SHORT="$HOSTNAME_SHORT" USERNAME="$USER" \
-      sudo -H --preserve-env=HOSTNAME_SHORT,USERNAME \
-      "$DARWIN_REBUILD" switch --flake "$FLAKE_TARGET" $EXTRA_FLAGS
-  else
-    echo "==> Bootstrapping nix-darwin (first run)..."
-    # shellcheck disable=SC2086
-    HOSTNAME_SHORT="$HOSTNAME_SHORT" USERNAME="$USER" \
-      sudo -H --preserve-env=HOSTNAME_SHORT,USERNAME \
-      nix run nix-darwin -- switch --flake "$FLAKE_TARGET" $EXTRA_FLAGS
-  fi
-else
-  # Linux / Codespaces: standalone home-manager
-  HM_CONFIG="${HM_CONFIG:-codespaces}"
-  echo "==> Building home-manager (config: $HM_CONFIG)..."
-
-  if ! command -v home-manager &>/dev/null; then
-    echo "    Installing home-manager..."
-    nix run home-manager -- switch --flake "$SCRIPT_DIR#$HM_CONFIG" -b bak
-  else
-    home-manager switch --flake "$SCRIPT_DIR#$HM_CONFIG" -b bak
-  fi
-fi
+"$SCRIPT_DIR/apply.sh" --hostname "$HOSTNAME_SHORT"
 
 # ----------------------------------------------------------
 # 3. Post-setup: tools outside Nix
@@ -161,8 +134,22 @@ fi
 # Bun global packages (from bun/package.json)
 BUN_DIR="$SCRIPT_DIR/bun"
 if [ -f "$BUN_DIR/package.json" ]; then
-  echo "    Installing bun global packages..."
-  $RUN_AS bash -c "cd $BUN_DIR && bun install --frozen-lockfile"
+  BUN_STAMP="$BUN_DIR/node_modules/.dotfiles-install.sha256"
+  BUN_INPUT_HASH="$(
+    cd "$BUN_DIR"
+    {
+      shasum -a 256 package.json
+      [ -f bun.lock ] && shasum -a 256 bun.lock
+      [ -f bun.lockb ] && shasum -a 256 bun.lockb
+    } | shasum -a 256 | awk '{print $1}'
+  )"
+
+  if [ -n "${FORCE_BUN_INSTALL:-}" ] || [ ! -d "$BUN_DIR/node_modules" ] || [ ! -f "$BUN_STAMP" ] || [ "$(cat "$BUN_STAMP")" != "$BUN_INPUT_HASH" ]; then
+    echo "    Installing bun global packages..."
+    $RUN_AS bash -c "cd '$BUN_DIR' && bun install --frozen-lockfile && mkdir -p node_modules && printf '%s\n' '$BUN_INPUT_HASH' > node_modules/.dotfiles-install.sha256"
+  else
+    echo "    bun global packages: ✓"
+  fi
 else
   echo "    bun/package.json not found, skipping"
 fi

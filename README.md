@@ -14,8 +14,9 @@ cd ~/dotfiles
 
 1. Nix インストール (Determinate Systems)
 2. nix-darwin + home-manager ビルド & 適用
-3. Nix 外ツールのインストール (GitHub Copilot CLI, goenv)
-4. Neovim 設定の symlink
+3. Nix 外ツールのインストール (GitHub Copilot CLI, goenv, tfenv, aws-sam-cli)
+4. Bun global packages のインストール (package.json / lockfile 変更時のみ)
+5. Neovim / cmux / Ghostty 設定の symlink
 
 ## 構造
 
@@ -30,11 +31,16 @@ nix/
 config/
   nvim/                     # Neovim 設定 (LazyVim)
   cmux/                     # cmux (Ghostty) 設定
+apply.sh                   # 日常の Nix 設定反映スクリプト
 setup.sh                   # ブートストラップスクリプト
 ```
 
 ## 設定変更の適用
 
+日常の Nix 設定変更は `apply.sh` で反映する:
+
 ```bash
-./setup.sh
+./apply.sh
 ```
+
+初回セットアップや Nix 外ツールも含めて再確認したい場合は `./setup.sh` を使う。
