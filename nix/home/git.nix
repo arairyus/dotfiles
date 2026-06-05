@@ -21,7 +21,10 @@
       };
 
       branch.sort = "-authordate";
-      core.editor = "nvim";
+      core = {
+        editor = "nvim";
+        hooksPath = "~/.config/git/hooks";
+      };
 
       credential."https://github.com" = {
         helper = [
@@ -66,5 +69,34 @@
   # git-cz (streamich/git-cz): disable emoji prefix in commit messages
   home.file.".git-cz.json".text = builtins.toJSON {
     disableEmoji = true;
+  };
+
+  # Global pre-commit hook for all repositories/worktrees.
+  # Ensures Terraform files are always formatted before commit.
+  home.file.".config/git/hooks/pre-commit" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+      set -euo pipefail
+
+      if ! command -v terraform >/dev/null 2>&1; then
+        echo "[pre-commit] terraform command not found" >&2
+        exit 1
+      fi
+
+      mapfile -t tf_files < <(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.tf$|\.tfvars$' || true)
+      if [ ''${#tf_files[@]} -eq 0 ]; then
+        exit 0
+      fi
+
+      echo "[pre-commit] running terraform fmt -recursive"
+      terraform fmt -recursive
+
+      for f in "''${tf_files[@]}"; do
+        if [ -e "$f" ]; then
+          git add "$f"
+        fi
+      done
+    '';
   };
 }

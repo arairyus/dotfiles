@@ -10,7 +10,7 @@
   docker = "podman";
   docker-compose = "podman compose";
   dk = "podman";
-  ll = "ls -l";
+  ll = "ls -la";
   la = "ls -al";
   k = "kubectl";
   kx = "kubectx";

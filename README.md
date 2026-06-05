@@ -43,4 +43,11 @@ setup.sh                   # ブートストラップスクリプト
 ./apply.sh
 ```
 
+macOS ではホスト名に対応した純粋な flake target を優先し、未登録ホストでは `#auto --impure` にフォールバックする。
+前回適用後に `flake.nix` / `flake.lock` / `nix/` 配下が変わっていない場合は rebuild をスキップする。強制適用する場合:
+
+```bash
+./apply.sh --force
+```
+
 初回セットアップや Nix 外ツールも含めて再確認したい場合は `./setup.sh` を使う。

@@ -1,7 +1,12 @@
 { pkgs, ... }:
 
 let
+  dotnet-sdk = pkgs.dotnetCorePackages.combinePackages [
+    pkgs.dotnet-sdk_8
+    pkgs.dotnetCorePackages.sdk_10_0-bin
+  ];
   git-cz = pkgs.callPackage ../packages/git-cz { };
+  terraform-docs = pkgs.callPackage ../packages/terraform-docs { };
   terraform-mcp-server = pkgs.callPackage ../packages/terraform-mcp-server { };
 in
 
@@ -64,7 +69,7 @@ in
 
     # Cloud CLIs
     awscli2           # AWS CLI v2
-    (azure-cli.withExtensions [ azure-cli.extensions.azure-devops ])  # Azure CLI + DevOps 拡張
+    (azure-cli.withExtensions [ azure-cli.extensions.azure-devops azure-cli.extensions.resource-graph ])  # Azure CLI + DevOps / Resource Graph 拡張
     azure-storage-azcopy # Azure storage data transfer
     trivy             # container/IaC vulnerability scanner
     checkov           # IaC security/compliance scanner
@@ -74,7 +79,7 @@ in
     ansible           # IT automation
     ansible-lint      # Ansible playbook linter
     bun               # JavaScript runtime & package manager
-    dotnet-sdk_8      # .NET SDK 8
+    dotnet-sdk        # .NET SDK 8 + 10
     nodejs            # Node.js runtime
     php               # PHP runtime
     temurin-bin       # Eclipse Temurin JDK (Java)
@@ -95,4 +100,9 @@ in
     # Other
     powershell        # PowerShell cross-platform
   ];
+
+  home.sessionVariables = {
+    DOTNET_ROOT = "${dotnet-sdk}/share/dotnet";
+    DOTNET_ROOT_ARM64 = "${dotnet-sdk}/share/dotnet";
+  };
 }

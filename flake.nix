@@ -46,11 +46,12 @@
           specialArgs = { inherit username homedir; };
           modules =
             (import ./nix/darwin {
-              inherit username homedir;
+              inherit pkgs username homedir;
             }).modules
             ++ [
               inputs.home-manager.darwinModules.home-manager
               {
+                networking.hostName = hostname;
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
                 home-manager.backupFileExtension = "bak";
