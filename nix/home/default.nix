@@ -6,6 +6,7 @@
     ./bash.nix
     ./zsh.nix
     ./git.nix
+    ./takumi-guard.nix
   ];
 
   home.stateVersion = "25.05";

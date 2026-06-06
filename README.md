@@ -18,6 +18,15 @@ cd ~/dotfiles
 4. Bun global packages のインストール (package.json / lockfile 変更時のみ)
 5. Neovim / cmux / Ghostty 設定の symlink
 
+## セキュリティ設定
+
+Takumi Guard (npm ecosystem) を有効化済み。Home Manager で以下を配布する:
+
+- `~/.npmrc` (`registry=https://npm.flatt.tech`)
+- `~/.config/pnpm/rc` (`registry=https://npm.flatt.tech`)
+- `~/.yarnrc.yml` (`npmRegistryServer: "https://npm.flatt.tech"`)
+- `~/.bunfig.toml` (`[install] registry = "https://npm.flatt.tech"`)
+
 ## 構造
 
 ```
