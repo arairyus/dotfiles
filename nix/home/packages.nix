@@ -35,6 +35,7 @@ in
     tree              # directory tree viewer
     vegeta            # HTTP load testing tool
     wget              # file downloader
+    yamllint          # YAML linter
     yq                # YAML/XML/TOML processor
     zizmor            # GitHub Actions security scanner
 
