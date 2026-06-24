@@ -30,6 +30,7 @@ in
     neovim            # modern vim
     pinact            # pin GitHub Actions versions
     redis             # Redis server and CLI tools
+    ripgrep           # fast recursive text search (rg)
     shellcheck        # shell script linter
     tmux              # terminal multiplexer
     tree              # directory tree viewer
