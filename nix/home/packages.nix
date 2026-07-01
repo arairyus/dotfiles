@@ -95,6 +95,7 @@ in
     pre-commit        # git pre-commit hook framework
     cookiecutter      # project template generator
     postgresql_14     # PostgreSQL 14
+    uv                # fast Python package/project manager
 
     # 1Password CLI
     _1password-cli    # 1Password CLI (op)
