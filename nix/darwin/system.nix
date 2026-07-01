@@ -55,4 +55,12 @@ in
   security.pam.services.sudo_local.touchIdAuth = true;
 
   homebrew.enable = false;
+
+  # Keep rg reachable from sandboxed tools that only check /usr/local/bin.
+  system.activationScripts.ensureRgSymlink.text = ''
+    if [ -x /etc/profiles/per-user/${username}/bin/rg ]; then
+      mkdir -p /usr/local/bin
+      ln -sfn /etc/profiles/per-user/${username}/bin/rg /usr/local/bin/rg
+    fi
+  '';
 }
