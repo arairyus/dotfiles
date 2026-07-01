@@ -40,8 +40,39 @@ nix/
 config/
   nvim/                     # Neovim 設定 (LazyVim)
   cmux/                     # cmux (Ghostty) 設定
+skills/                     # Claude / Codex / Copilot CLI 共通スキル (SKILL.md)
+scripts/
+  skills-sync.sh            # skills/ を各ツールへ symlink 配置
+  skills-promote.sh         # ローカルで作られたスキルを dotfiles に昇格
 apply.sh                   # 日常の Nix 設定反映スクリプト
 setup.sh                   # ブートストラップスクリプト
+```
+
+## スキル管理 (Claude / Codex / Copilot CLI)
+
+`skills/<name>/SKILL.md` に置いたスキルは `scripts/skills-sync.sh` で各ツールの
+スキルディレクトリへ **スキル単位のシンボリックリンク** として配置される。
+
+- `~/.claude/skills/<name>`
+- `~/.codex/skills/<name>`
+- `~/.copilot/skills/<name>`
+
+ディレクトリ単位ではなくスキルごとに symlink するため、業務固有の情報を含む
+スキルは各ツールのスキルディレクトリに実ディレクトリとして置いたままにしておけば、
+このリポジトリに取り込まれず(sync 時は自動でスキップされる)、他の dotfiles
+管理スキルとも共存できる。`setup.sh` 実行時に自動で同期されるほか、スキル追加後は
+以下で即時反映できる:
+
+```bash
+./scripts/skills-sync.sh
+```
+
+Claude/Codex/Copilot 上で作業中に作られたローカルスキルを dotfiles 管理に切り替えたい場合は
+`skills-promote.sh` で該当ツールのスキルディレクトリから `skills/` へ移動し、
+3ツール分の symlink を張り直す:
+
+```bash
+./scripts/skills-promote.sh <skill-name>
 ```
 
 ## 設定変更の適用

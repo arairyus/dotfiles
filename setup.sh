@@ -199,6 +199,12 @@ if [[ "$OS" == "Darwin" ]]; then
   fi
 fi
 
+# Skills (Claude / Codex / GitHub Copilot CLI)
+if [ -x "$SCRIPT_DIR/scripts/skills-sync.sh" ]; then
+  echo "==> Linking skills..."
+  $RUN_AS "$SCRIPT_DIR/scripts/skills-sync.sh"
+fi
+
 # ----------------------------------------------------------
 # 4. Cleanup
 # ----------------------------------------------------------
