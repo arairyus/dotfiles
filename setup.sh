@@ -115,6 +115,21 @@ else
   echo "    goenv: ✓"
 fi
 
+# goenv global version (avoid "go: command not found" when global is left as "system"
+# but no working system Go is installed; fall back to the newest goenv-installed version).
+# Note: `command -v go` is not enough here, since the goenv shim exists regardless of
+# whether a version actually resolves, so we check that `go version` really runs.
+if [ -x "$HOME/.goenv/bin/goenv" ]; then
+  GOENV_CURRENT_GLOBAL="$("$HOME/.goenv/bin/goenv" global 2>/dev/null || echo system)"
+  if [ "$GOENV_CURRENT_GLOBAL" = "system" ] && ! GOENV_ROOT="$HOME/.goenv" PATH="$HOME/.goenv/shims:$PATH" go version &>/dev/null; then
+    GOENV_LATEST_INSTALLED="$("$HOME/.goenv/bin/goenv" versions --bare 2>/dev/null | grep -v '^system$' | sort -V | tail -1)"
+    if [ -n "$GOENV_LATEST_INSTALLED" ]; then
+      echo "    goenv global is 'system' but no working system Go found; setting global to $GOENV_LATEST_INSTALLED..."
+      "$HOME/.goenv/bin/goenv" global "$GOENV_LATEST_INSTALLED"
+    fi
+  fi
+fi
+
 # tfenv
 if [ ! -d "$HOME/.tfenv" ]; then
   echo "    Installing tfenv..."
