@@ -50,6 +50,7 @@ in
     argocd            # Argo CD CLI (GitOps)
     eksctl            # Amazon EKS cluster management
     hadolint          # Dockerfile linter
+    kube-linter       # static analysis for Kubernetes YAML/Helm charts
     kubectl           # Kubernetes CLI
     kubelogin         # Kubernetes credential plugin for Azure AD (AKS)
     kubernetes-helm   # Kubernetes package manager
