@@ -26,6 +26,14 @@
       ...
     }:
     let
+      nixpkgsConfig = {
+        allowUnfree = true;
+        permittedInsecurePackages = [
+          # Required by azure-cli in current nixpkgs.
+          "python3.13-ecdsa-0.19.2"
+        ];
+      };
+
       # Darwin config factory — requires: nix ... --impure
       # HOSTNAME_SHORT and USERNAME must be set in the environment.
       mkDarwinConfig =
@@ -38,7 +46,7 @@
           homedir = "/Users/${username}";
           pkgs = import nixpkgs {
             inherit system;
-            config.allowUnfree = true;
+            config = nixpkgsConfig;
           };
         in
         inputs.nix-darwin.lib.darwinSystem {
@@ -79,7 +87,7 @@
         "codespaces" = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             system = "x86_64-linux";
-            config.allowUnfree = true;
+            config = nixpkgsConfig;
           };
           modules = [
             ./nix/home
@@ -93,7 +101,7 @@
         "devcontainer" = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             system = "aarch64-linux";
-            config.allowUnfree = true;
+            config = nixpkgsConfig;
           };
           modules = [
             ./nix/home
