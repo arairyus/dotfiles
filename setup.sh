@@ -54,15 +54,6 @@ fi
 OS="$(uname)"
 
 # ----------------------------------------------------------
-# 1.5. Homebrew (macOS only; required by nix-darwin's homebrew module,
-#      which manages azure-cli declaratively)
-# ----------------------------------------------------------
-if [[ "$OS" == "Darwin" ]] && ! command -v brew &>/dev/null; then
-  echo "==> Installing Homebrew..."
-  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-fi
-
-# ----------------------------------------------------------
 # 2. System build (OS-dependent)
 # ----------------------------------------------------------
 "$SCRIPT_DIR/apply.sh" --hostname "$HOSTNAME_SHORT"

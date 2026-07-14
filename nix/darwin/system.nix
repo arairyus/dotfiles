@@ -54,17 +54,7 @@ in
 
   security.pam.services.sudo_local.touchIdAuth = true;
 
-  homebrew = {
-    enable = true;
-    # azure-cli: nixpkgs' k8s-extension fails to build (kubernetes/oras version
-    # pin mismatch) and az extension add doesn't work against the Nix-bundled
-    # python (no pip module). Manage azure-cli via Homebrew instead.
-    brews = [ "azure-cli" ];
-    onActivation = {
-      autoUpdate = true;
-      upgrade = true;
-    };
-  };
+  homebrew.enable = false;
 
   # Keep rg reachable from sandboxed tools that only check /usr/local/bin.
   system.activationScripts.ensureRgSymlink.text = ''
