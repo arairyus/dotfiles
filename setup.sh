@@ -59,7 +59,10 @@ OS="$(uname)"
 # ----------------------------------------------------------
 if [[ "$OS" == "Darwin" ]] && ! command -v brew &>/dev/null; then
   echo "==> Installing Homebrew..."
-  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  # Prime sudo credentials so the installer's internal sudo calls don't need
+  # a non-interactive (and thus failing) prompt.
+  sudo -v
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 # ----------------------------------------------------------
