@@ -8,6 +8,23 @@ let
   git-cz = pkgs.callPackage ../packages/git-cz { };
   terraform-docs = pkgs.callPackage ../packages/terraform-docs { };
   terraform-mcp-server = pkgs.callPackage ../packages/terraform-mcp-server { };
+
+  # k8s-extension's declared runtime pins (kubernetes==24.2.0, oras==0.2.25) are
+  # stricter than the versions nixpkgs actually resolves, which trips
+  # pythonRuntimeDepsCheckHook. Relax those pins instead of skipping the whole
+  # AKS extension.
+  k8s-extension-relaxed = pkgs.azure-cli.extensions.k8s-extension.overridePythonAttrs (old: {
+    pythonRelaxDeps = [ "kubernetes" "oras" ];
+  });
+  azure-cli-with-extensions = pkgs.azure-cli.withExtensions (
+    with pkgs.azure-cli.extensions;
+    [
+      azure-devops
+      log-analytics
+      resource-graph
+      k8s-extension-relaxed
+    ]
+  );
 in
 
 {
@@ -72,6 +89,7 @@ in
 
     # Cloud CLIs
     awscli2           # AWS CLI v2
+    azure-cli-with-extensions  # Azure CLI + DevOps / Log Analytics / Resource Graph / AKS(k8s-extension) 拡張
     azure-storage-azcopy # Azure storage data transfer
     trivy             # container/IaC vulnerability scanner
     checkov           # IaC security/compliance scanner
