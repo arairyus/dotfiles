@@ -72,7 +72,7 @@ in
 
     # Cloud CLIs
     awscli2           # AWS CLI v2
-    (azure-cli.withExtensions [ azure-cli.extensions.azure-devops azure-cli.extensions."k8s-extension" azure-cli.extensions.log-analytics azure-cli.extensions.resource-graph ])  # Azure CLI + DevOps / k8s-extension / Log Analytics / Resource Graph 拡張
+    (azure-cli.withExtensions [ azure-cli.extensions.azure-devops azure-cli.extensions.log-analytics azure-cli.extensions.resource-graph ])  # Azure CLI + DevOps / Log Analytics / Resource Graph 拡張
     azure-storage-azcopy # Azure storage data transfer
     trivy             # container/IaC vulnerability scanner
     checkov           # IaC security/compliance scanner
