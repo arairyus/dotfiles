@@ -31,6 +31,7 @@ in
   home.packages = with pkgs; [
     # CLI utilities
     actionlint        # GitHub Actions workflow linter
+    adr-tools         # Architecture Decision Records (ADR) tools
     bat               # cat with syntax highlighting
     coreutils         # GNU core utilities
     devenv            # reproducible dev environments
