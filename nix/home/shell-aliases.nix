@@ -1,5 +1,6 @@
 {
-  code = "/Applications/Zed.app/Contents/MacOS/cli";
+  code = "open -a \"Visual Studio Code\"";
+  zed = "open -a Zed";
   python = "python3";
   pip = "pip3";
   tg = "terragrunt";
