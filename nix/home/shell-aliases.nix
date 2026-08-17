@@ -11,6 +11,7 @@
   docker = "podman";
   docker-compose = "podman compose";
   dk = "podman";
+  gw = "git worktree";
   ll = "ls -la";
   la = "ls -al";
   k = "kubectl";
