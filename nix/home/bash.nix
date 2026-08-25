@@ -39,9 +39,6 @@ in
       export PATH="$HOME/.volta/bin:$PATH"
       export PATH="$HOME/.tgenv/bin:$PATH"
       export PATH="$HOME/.tfenv/bin:$PATH"
-      if [ -d /opt/podman/bin ]; then
-        export PATH="/opt/podman/bin:$PATH"
-      fi
       export PATH="$PATH:$HOME/.lmstudio/bin"
       export PATH="$HOME/.bun/bin:$PATH"
 

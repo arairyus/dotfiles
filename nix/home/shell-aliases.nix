@@ -8,9 +8,9 @@
   tfdoc = "terraform-docs";
   tfplan = "terraform plan | awk '/Cost Estimation:/{exit} {print}'";
   tfscan = "terrascan";
-  docker = "podman";
-  docker-compose = "podman compose";
-  dk = "podman";
+  dk = "docker";
+  colima-start = "colima start";
+  colima-stop = "colima stop";
   gw = "git worktree";
   ll = "ls -la";
   la = "ls -al";

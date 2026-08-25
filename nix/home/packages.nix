@@ -33,8 +33,12 @@ in
     actionlint        # GitHub Actions workflow linter
     adr-tools         # Architecture Decision Records (ADR) tools
     bat               # cat with syntax highlighting
+    colima            # container runtimes (Docker/containerd) on macOS via Lima
     coreutils         # GNU core utilities
     devenv            # reproducible dev environments
+    docker-client     # Docker CLI (talks to colima's Docker daemon)
+    docker-buildx     # Docker Buildx plugin
+    docker-compose    # Docker Compose plugin
     fd                # find alternative (fast, user-friendly)
     fzf               # fuzzy finder
     gh                # GitHub CLI
