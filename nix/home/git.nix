@@ -61,7 +61,7 @@
       "devenv.lock"
 
       # terraform
-      ".spec"
+      ".spec/**"
     ];
   };
 
