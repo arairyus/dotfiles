@@ -46,7 +46,6 @@ in
     graphviz          # graph visualization (dot)
     httpie            # user-friendly HTTP client
     imagemagick       # image manipulation tools
-    jmeter            # load testing and performance measurement tool
     jq                # JSON processor
     lazygit           # terminal UI for git
     mtr               # network diagnostics (traceroute + ping)
