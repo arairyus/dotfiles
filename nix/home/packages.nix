@@ -63,6 +63,7 @@ in
     zizmor            # GitHub Actions security scanner
 
     # Git tools
+    ghq               # Git repository manager
     git-cz            # semantic emoji git commits
     git-filter-repo   # git history rewriting
     git-secrets       # prevent committing secrets
