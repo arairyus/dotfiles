@@ -50,6 +50,7 @@ in
     lazygit           # terminal UI for git
     mtr               # network diagnostics (traceroute + ping)
     neovim            # modern vim
+    peco              # interactive filtering tool
     pinact            # pin GitHub Actions versions
     redis             # Redis server and CLI tools
     ripgrep           # fast recursive text search (rg)
