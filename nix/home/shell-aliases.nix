@@ -11,6 +11,7 @@
   dk = "docker";
   colima-start = "colima start";
   colima-stop = "colima stop";
+  gcd = "cd $(ghq root)/$(ghq list | fzf)";
   gw = "git worktree";
   ll = "ls -la";
   la = "ls -al";
