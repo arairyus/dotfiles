@@ -69,6 +69,7 @@ in
     git-filter-repo   # git history rewriting
     git-secrets       # prevent committing secrets
     gitleaks          # secret detection in git repos
+    gwq               # Git worktree manager with fuzzy finder interface
 
     # Kubernetes & DevOps
     argocd            # Argo CD CLI (GitOps)
