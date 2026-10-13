@@ -11,7 +11,7 @@
   dk = "docker";
   colima-start = "colima start";
   colima-stop = "colima stop";
-  gcd = "cd $(ghq root)/$(ghq list | fzf)";
+  gcd = "cd \"$( { ghq list | sed \"s|^|$(ghq root)/|\"; gwq list --global --json | jq -r '.[].path'; } | awk '!seen[$0]++' | fzf)\"";
   gw = "git worktree";
   ll = "ls -la";
   la = "ls -al";
