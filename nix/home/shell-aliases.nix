@@ -11,7 +11,7 @@
   dk = "docker";
   colima-start = "colima start";
   colima-stop = "colima stop";
-  gcd = "cd \"$( { ghq list | while IFS= read -r repo; do path=\"$(ghq root)/$repo\"; printf '%s\\t%s\\n' \"$repo\" \"$path\"; done; gwq list --global --json | jq -r '.[] | [(.path | sub(\"^.*/github[.]com/\"; \"\")), .path] | @tsv'; } | awk -F '\\t' '!seen[$2]++' | fzf --delimiter='\\t' --with-nth=1 | cut -f2-)\"";
+  gcd = "cd \"$( { ghq list | while IFS= read -r repo; do repo_path=\"$(ghq root)/$repo\"; printf '%s\\t%s\\n' \"$repo\" \"$repo_path\"; done; gwq list --global --json | jq -r '.[] | [(.path | sub(\"^.*/github[.]com/\"; \"\")), .path] | @tsv'; } | awk -F '\\t' '!seen[$2]++' | fzf --delimiter='\\t' --with-nth=1 | cut -f2-)\"";
   gw = "git worktree";
   ll = "ls -la";
   la = "ls -al";

@@ -22,6 +22,8 @@ let
       azure-devops
       log-analytics
       resource-graph
+      front-door
+      cdn
       k8s-extension-relaxed
     ]
   );
@@ -97,7 +99,7 @@ in
 
     # Cloud CLIs
     awscli2           # AWS CLI v2
-    azure-cli-with-extensions  # Azure CLI + DevOps / Log Analytics / Resource Graph / AKS(k8s-extension) 拡張
+    azure-cli-with-extensions  # Azure CLI + DevOps / Log Analytics / Resource Graph / Front Door / AKS(k8s-extension) 拡張
     azure-storage-azcopy # Azure storage data transfer
     trivy             # container/IaC vulnerability scanner
     checkov           # IaC security/compliance scanner

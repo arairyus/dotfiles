@@ -77,6 +77,10 @@ Claude/Codex/Copilot 上で作業中に作られたローカルスキルを dotf
 
 ## 設定変更の適用
 
+`gcd` は ghq のリポジトリと gwq の worktree を fzf で選択して移動する。
+worktree の候補表示では `github.com/` までのプレフィックスを省略するが、
+移動には表示名ではなくフルパスを使う（bash / zsh 共通）。
+
 日常の Nix 設定変更は `apply.sh` で反映する:
 
 ```bash
